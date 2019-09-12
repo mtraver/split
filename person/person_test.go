@@ -1,8 +1,9 @@
 package person
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/kylelemons/godebug/pretty"
 )
 
 func TestNew(t *testing.T) {
@@ -67,8 +68,8 @@ func TestNew(t *testing.T) {
 				return
 			}
 
-			if !reflect.DeepEqual(got, c.Want) {
-				t.Errorf("Got %v, want %v", got, c.Want)
+			if diff := pretty.Compare(got, c.Want); diff != "" {
+				t.Errorf("Unexpected result (-got +want):\n%s", diff)
 			}
 		})
 	}
